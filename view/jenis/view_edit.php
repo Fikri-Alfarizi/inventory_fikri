@@ -193,23 +193,28 @@
   </div>
 </nav>
 
-<!-- Form Tambah Jenis -->
+<?php
+include '../../config/koneksi.php';
+$id_jenis = $_GET['id'];
+$query = mysqli_query($conn, "SELECT * FROM jenis WHERE id_jenis='$id_jenis'");
+$result = mysqli_fetch_array($query);
+?>
+
+<!-- Form Edit Jenis -->
 <div class="container mt-5">
   <div class="card card-custom mx-auto" style="max-width: 600px;">
-    <h3 class="mb-4 text-center text-dark"><i class="fa-solid fa-layer-group"></i> Tambah Jenis Baru</h3>
-    <form action="proses_tambah.php" method="POST">
+    <h3 class="mb-4 text-center text-dark"><i class="fa-solid fa-layer-group"></i> Edit Jenis</h3>
+    <form action="proses_edit.php" method="POST">
       <div class="mb-3">
         <label class="form-label">ID Jenis</label>
-        <input type="text" class="form-control" name="id_jenis" 
-          value="<?php echo isset($data['id_jenis']) ? $data['id_jenis'] : ''; ?>" required>
+        <input type="text" class="form-control" name="id_jenis" value="<?php echo $result['id_jenis']; ?>" readonly>
       </div>
       <div class="mb-3">
         <label class="form-label">Nama Jenis</label>
-        <input type="text" class="form-control" name="nama_jenis" 
-          value="<?php echo isset($data['nama_jenis']) ? $data['nama_jenis'] : ''; ?>" required>
+        <input type="text" class="form-control" name="nama_jenis" value="<?php echo $result['nama_jenis']; ?>" required>
       </div>
       <div class="d-grid">
-        <button type="submit" class="btn btn-purple">💾 Simpan</button>
+        <button type="submit" class="btn btn-purple"><i class="fa-solid fa-floppy-disk"></i> Update</button>
       </div>
     </form>
   </div>

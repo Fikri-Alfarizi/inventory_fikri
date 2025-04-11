@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -193,23 +194,40 @@
   </div>
 </nav>
 
-<!-- Form Tambah Jenis -->
+<?php
+include '../../config/koneksi.php';
+$id_barang = $_GET['id'];
+$query = mysqli_query($conn, "SELECT * FROM barang WHERE id_barang='$id_barang'");
+$result = mysqli_fetch_array($query);
+?>
+
+<!-- Form Edit Barang -->
 <div class="container mt-5">
   <div class="card card-custom mx-auto" style="max-width: 600px;">
-    <h3 class="mb-4 text-center text-dark"><i class="fa-solid fa-layer-group"></i> Tambah Jenis Baru</h3>
-    <form action="proses_tambah.php" method="POST">
+    <h3 class="mb-4 text-center text-dark">✏️ Edit Barang</h3>
+    <form action="proses_edit.php" method="POST">
+      <div class="mb-3">
+        <label class="form-label">ID Barang</label>
+        <input type="number" class="form-control" name="id_barang" value="<?php echo $result['id_barang']; ?>" readonly>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Nama Barang</label>
+        <input type="text" class="form-control" name="nama_barang" value="<?php echo $result['nama_barang']; ?>" required>
+      </div>
       <div class="mb-3">
         <label class="form-label">ID Jenis</label>
-        <input type="text" class="form-control" name="id_jenis" 
-          value="<?php echo isset($data['id_jenis']) ? $data['id_jenis'] : ''; ?>" required>
+        <input type="number" class="form-control" name="id_jenis" value="<?php echo $result['id_jenis']; ?>" required>
       </div>
       <div class="mb-3">
-        <label class="form-label">Nama Jenis</label>
-        <input type="text" class="form-control" name="nama_jenis" 
-          value="<?php echo isset($data['nama_jenis']) ? $data['nama_jenis'] : ''; ?>" required>
+        <label class="form-label">Harga</label>
+        <input type="number" class="form-control" name="harga" value="<?php echo $result['harga']; ?>" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Stok</label>
+        <input type="number" class="form-control" name="stok" value="<?php echo $result['stok']; ?>" required>
       </div>
       <div class="d-grid">
-        <button type="submit" class="btn btn-purple">💾 Simpan</button>
+        <button type="submit" class="btn btn-purple">💾 Update</button>
       </div>
     </form>
   </div>
